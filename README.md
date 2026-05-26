@@ -1,2 +1,6 @@
-# Summer-Coding-
-Summer coding web page
+git init
+git add .
+git commit -m "Initial commit"
+git branch -M main
+git remote add origin https://github.com/YOUR_USERNAME/summer-coding-001.git
+git push -u origin main
