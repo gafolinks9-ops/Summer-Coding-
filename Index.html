@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Summer Coding 001 - Build Your First Game</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'fredoka': ['Fredoka', 'sans-serif'],
+                        'nunito': ['Nunito', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            orange: '#FF6B35',
+                            yellow: '#F7C948',
+                            green: '#2D9C5B',
+                            darkBlue: '#1A2B4A',
+                            light: '#FFF8F0',
+                            purple: '#6B4C9A'
+                        }
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'wiggle': 'wiggle 1s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        wiggle: {
+                            '0%, 100%': { transform: 'rotate(-3deg)' },
+                            '50%': { transform: 'rotate(3deg)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Nunito', sans-serif;
+            background-color: #FFF8F0;
+            overflow-x: hidden;
+        }
+        h1, h2, h3, h4, .font-display {
+            font-family: 'Fredoka', sans-serif;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+        .pattern-bg {
+            background-image: radial-gradient(#FF6B35 1px, transparent 1px);
+            background-size: 20px 20px;
+            opacity: 0.1;
+        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #FFF8F0;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #FF6B35;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body class="text-brand-darkBlue">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-white/90 backdrop-blur-md shadow-sm border-b border-brand-yellow/30">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <div class="w-10 h-10 bg-brand-orange rounded-lg flex items-center justify-center text-white text-xl font-bold shadow-lg transform -rotate-6">
+                    <i class="fa-solid fa-code"></i>
+                </div>
+                <span class="font-fredoka text-2xl font-bold text-brand-darkBlue">Summer<span class="text-brand-orange">Coding</span></span>
+            </div>
+            <div class="hidden md:flex items-center gap-6 font-bold text-sm">
+                <a href="#details" class="hover:text-brand-orange transition">Details</a>
+                <a href="#curriculum" class="hover:text-brand-orange transition">Curriculum</a>
+                <a href="#register" class="bg-brand-green text-white px-6 py-2 rounded-full hover:bg-green-700 transition shadow-md transform hover:scale-105">
+                    Register Now
+                </a>
+            </div>
+            <button class="md:hidden text-2xl text-brand-darkBlue">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
+        <div class="absolute inset-0 pattern-bg"></div>
+        <!-- Decorative Blobs -->
+        <div class="absolute top-20 -left-20 w-72 h-72 bg-brand-yellow rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse-slow"></div>
+        <div class="absolute top-40 -right-20 w-72 h-72 bg-brand-orange rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse-slow" style="animation-delay: 2s"></div>
+
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="flex flex-col lg:flex-row items-center gap-12">
+                <div class="lg:w-1/2 text-center lg:text-left">
+                    <div class="inline-block bg-brand-yellow/20 text-brand-orange px-4 py-1 rounded-full font-bold text-sm mb-4 border border-brand-yellow">
+                        <i class="fa-solid fa-rocket mr-2"></i> Registration Open for 2026
+                    </div>
+                    <h1 class="text-5xl lg:text-7xl font-bold leading-tight mb-6 text-brand-darkBlue">
+                        Build Your <br>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-orange to-brand-yellow">First Game</span> <br>
+                        This Summer!
+                    </h1>
+                    <p class="text-xl text-gray-600 mb-8 max-w-lg mx-auto lg:mx-0">
+                        Give your child a productive and exciting holiday! Learn to code, design characters, and publish a real game in just 5 weeks.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                        <a href="#register" class="bg-brand-orange text-white px-8 py-4 rounded-xl font-bold text-lg shadow-lg shadow-orange-500/30 hover:shadow-orange-500/50 hover:-translate-y-1 transition transform flex items-center justify-center gap-2">
+                            <span>Enroll Now</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                        <button onclick="document.getElementById('video-modal').classList.remove('hidden')" class="bg-white text-brand-darkBlue border-2 border-brand-darkBlue/10 px-8 py-4 rounded-xl font-bold text-lg hover:bg-gray-50 transition flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-play text-brand-green"></i>
+                            <span>Watch Trailer</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Interactive Hero Visual -->
+                <div class="lg:w-1/2 relative">
+                    <div class="relative z-10 bg-white p-4 rounded-2xl shadow-2xl border-4 border-brand-darkBlue transform rotate-2 hover:rotate-0 transition duration-500">
+                        <!-- Simulated Game Screen -->
+                        <div class="bg-sky-300 rounded-xl overflow-hidden aspect-video relative group cursor-pointer">
+                            <!-- Game Assets (CSS Art) -->
+                            <div class="absolute bottom-0 w-full h-1/4 bg-green-500 border-t-4 border-green-700"></div>
+                            <div class="absolute bottom-[20%] left-[20%] w-16 h-16 bg-green-700 rounded-t-full opacity-80"></div>
+                            <div class="absolute bottom-[20%] right-[30%] w-12 h-24 bg-amber-700 rounded-t-lg border-2 border-amber-900"></div>
+                            <!-- Character -->
+                            <div class="absolute bottom-[25%] left-[40%] w-12 h-16 transition-all duration-1000 group-hover:translate-x-20">
+                                <div class="w-8 h-8 bg-red-500 rounded-full mx-auto border-2 border-black relative z-10">
+                                    <div class="absolute top-2 left-1 w-2 h-2 bg-white rounded-full"></div>
+                                    <div class="absolute top-2 right-1 w-2 h-2 bg-white rounded-full"></div>
+                                </div>
+                                <div class="w-10 h-8 bg-blue-600 rounded-lg mx-auto -mt-2 border-2 border-black"></div>
+                                <div class="flex justify-center -mt-1 gap-1">
+                                    <div class="w-3 h-6 bg-blue-800 rounded-full border border-black"></div>
+                                    <div class="w-3 h-6 bg-blue-800 rounded-full border border-black"></div>
+                                </div>
+                            </div>
+                            <!-- Clouds -->
+                            <div class="absolute top-10 left-10 text-white text-6xl opacity-80 animate-float"><i class="fa-solid fa-cloud"></i></div>
+                            <div class="absolute top-20 right-20 text-white text-4xl opacity-60 animate-float" style="animation-delay: 1s"><i class="fa-solid fa-cloud"></i></div>
+
+                            <div class="absolute top-4 right-4 bg-white/80 px-2 py-1 rounded text-xs font-bold font-mono text-black">
+                                SCORE: <span id="score-anim">0000</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Floating Badges -->
+                    <div class="absolute -bottom-6 -left-6 bg-brand-yellow text-brand-darkBlue p-4 rounded-xl shadow-lg animate-bounce z-20 font-bold border-2 border-white">
+                        <i class="fa-solid fa-gamepad mr-2"></i> 5 Weeks
+                    </div>
+                    <div class="absolute -top-6 -right-6 bg-brand-green text-white p-4 rounded-xl shadow-lg animate-pulse z-20 font-bold border-2 border-white">
+                        <i class="fa-solid fa-code mr-2"></i> Beginner Friendly
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Info Grid Section -->
+    <section id="details" class="py-20 bg-white relative">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-brand-darkBlue mb-4">Camp Details</h2>
+                <div class="w-24 h-1 bg-brand-orange mx-auto rounded-full"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Card 1: Duration -->
+                <div class="bg-brand-light p-6 rounded-2xl border border-gray-100 shadow-lg hover:shadow-xl transition hover:-translate-y-2 group">
+                    <div class="w-14 h-14 bg-orange-100 rounded-full flex items-center justify-center text-brand-orange text-2xl mb-4 group-hover:scale-110 transition">
+                        <i class="fa-regular fa-calendar-check"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Duration</h3>
+                    <p class="text-gray-600">5 Weeks of intensive, fun-filled learning and building.</p>
+                </div>
+
+                <!-- Card 2: Date -->
+                <div class="bg-brand-light p-6 rounded-2xl border border-gray-100 shadow-lg hover:shadow-xl transition hover:-translate-y-2 group">
+                    <div class="w-14 h-14 bg-green-100 rounded-full flex items-center justify-center text-brand-green text-2xl mb-4 group-hover:scale-110 transition">
+                        <i class="fa-regular fa-clock"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Schedule</h3>
+                    <p class="text-gray-600 font-bold">Mon - Wed</p>
+                    <p class="text-gray-600">2:00 PM - 5:00 PM</p>
+                </div>
+
+                <!-- Card 3: Venue -->
+                <div class="bg-brand-light p-6 rounded-2xl border border-gray-100 shadow-lg hover:shadow-xl transition hover:-translate-y-2 group">
+                    <div class="w-14 h-14 bg-red-100 rounded-full flex items-center justify-center text-red-500 text-2xl mb-4 group-hover:scale-110 transition">
+                        <i class="fa-solid fa-location-dot"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Venue</h3>
+                    <p class="text-gray-600">Twindo School (Behind Toke School), Totowu, Ogun State.</p>
+                </div>
+
+                <!-- Card 4: Target -->
+                <div class="bg-brand-light p-6 rounded-2xl border border-gray-100 shadow-lg hover:shadow-xl transition hover:-translate-y-2 group">
+                    <div class="w-14 h-14 bg-blue-100 rounded-full flex items-center justify-center text-blue-500 text-2xl mb-4 group-hover:scale-110 transition">
+                        <i class="fa-solid fa-users"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Target</h3>
+                    <p class="text-gray-600">Basic 6 - Basic 9 (Ages 10-14)</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing & Countdown Section -->
+    <section class="py-20 bg-brand-darkBlue text-white relative overflow-hidden">
+        <!-- Background Accents -->
+        <div class="absolute top-0 left-0 w-full h-full overflow-hidden opacity-10">
+            <i class="fa-solid fa-code absolute top-10 left-10 text-9xl"></i>
+            <i class="fa-solid fa-gamepad absolute bottom-10 right-10 text-9xl"></i>
+            <i class="fa-solid fa-bug absolute top-1/2 left-1/2 text-9xl transform -translate-x-1/2 -translate-y-1/2"></i>
+        </div>
+
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="flex flex-col lg:flex-row items-center gap-12">
+
+                <!-- Pricing Card -->
+                <div class="w-full lg:w-1/2">
+                    <div class="bg-white text-brand-darkBlue rounded-3xl p-8 shadow-2xl relative overflow-hidden">
+                        <div class="absolute top-0 right-0 bg-brand-yellow text-xs font-bold px-3 py-1 rounded-bl-lg">POPULAR</div>
+                        <h3 class="text-2xl font-bold text-gray-500 mb-2">Summer Coding Camp</h3>
+                        <div class="flex items-end gap-2 mb-6">
+                            <span class="text-5xl font-bold text-brand-darkBlue">₦15,000</span>
+                            <span class="text-gray-400 line-through text-xl mb-2">₦20,000</span>
+                        </div>
+                        <ul class="space-y-3 mb-8">
+                            <li class="flex items-center gap-3"><i class="fa-solid fa-check text-brand-green"></i> <span>5 Weeks Training</span></li>
+                            <li class="flex items-center gap-3"><i class="fa-solid fa-check text-brand-green"></i> <span>Game Development Kit</span></li>
+                            <li class="flex items-center gap-3"><i class="fa-solid fa-check text-brand-green"></i> <span>Certificate of Completion</span></li>
+                            <li class="flex items-center gap-3"><i class="fa-solid fa-check text-brand-green"></i> <span>Pizza Party Fridays</span></li>
+                        </ul>
+                        <button onclick="document.getElementById('register').scrollIntoView({behavior: 'smooth'})" class="w-full bg-brand-orange text-white py-4 rounded-xl font-bold text-lg hover:bg-orange-600 transition shadow-lg">
+                            Secure Spot Now
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Early Bird Countdown -->
+                <div class="w-full lg:w-1/2 text-center lg:text-left">
+                    <div class="inline-block bg-brand-yellow text-brand-darkBlue px-4 py-2 rounded-lg font-bold mb-6 animate-pulse">
+                        <i class="fa-solid fa-fire mr-2"></i> Early Bird Offer Ends Soon!
+                    </div>
+                    <h2 class="text-4xl lg:text-5xl font-bold mb-6">Pay Only <span class="text-brand-yellow">₦10,000</span></h2>
+                    <p class="text-gray-300 mb-8 text-lg">Register before July 10th to save ₦5,000. Don't let your child miss out on this opportunity to become a creator, not just a consumer.</p>
+
+                    <!-- Countdown Timer -->
+                    <div class="grid grid-cols-4 gap-4 max-w-md mx-auto lg:mx-0">
+                        <div class="bg-white/10 backdrop-blur rounded-lg p-3 border border-white/20">
+                            <div id="days" class="text-3xl font-bold text-brand-yellow">00</div>
+                            <div class="text-xs text-gray-400 uppercase">Days</div>
+                        </div>
+                        <div class="bg-white/10 backdrop-blur rounded-lg p-3 border border-white/20">
+                            <div id="hours" class="text-3xl font-bold text-brand-yellow">00</div>
+                            <div class="text-xs text-gray-400 uppercase">Hours</div>
+                        </div>
+                        <div class="bg-white/10 backdrop-blur rounded-lg p-3 border border-white/20">
+                            <div id="minutes" class="text-3xl font-bold text-brand-yellow">00</div>
+                            <div class="text-xs text-gray-400 uppercase">Mins</div>
+                        </div>
+                        <div class="bg-white/10 backdrop-blur rounded-lg p-3 border border-white/20">
+                            <div id="seconds" class="text-3xl font-bold text-brand-yellow">00</div>
+                            <div class="text-xs text-gray-400 uppercase">Secs</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Registration Steps -->
+    <section id="register" class="py-20 bg-brand-light">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-brand-darkBlue">How To Register</h2>
+                <p class="text-gray-600 mt-2">Four simple steps to join the fun</p>
+            </div>
+
+            <div class="relative">
+                <!-- Connecting Line (Desktop) -->
+                <div class="hidden lg:block absolute top-1/2 left-0 w-full h-1 bg-gray-200 -translate-y-1/2 z-0"></div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 relative z-10">
+                    <!-- Step 1 -->
+                    <div class="bg-white p-6 rounded-2xl shadow-lg text-center group hover:border-brand-orange border-2 border-transparent transition">
+                        <div class="w-16 h-16 bg-brand-green text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4 shadow-lg group-hover:scale-110 transition">1</div>
+                        <h3 class="font-bold text-xl mb-2">Make Payment</h3>
+                        <p class="text-sm text-gray-600 mb-4">Pay into the designated account.</p>
+                        <div class="bg-gray-100 p-3 rounded-lg text-left text-sm">
+                            <p class="font-bold text-brand-darkBlue">GTBank</p>
+                            <p>Acct: <span class="font-mono font-bold">0401143215</span></p>
+                            <p>Name: Gafar Faesol</p>
+                            <button onclick="copyToClipboard('0401143215')" class="mt-2 w-full bg-white border border-gray-300 py-1 rounded text-xs hover:bg-gray-50 transition">
+                                <i class="fa-regular fa-copy"></i> Copy Acct No
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="bg-white p-6 rounded-2xl shadow-lg text-center group hover:border-brand-orange border-2 border-transparent transition">
+                        <div class="w-16 h-16 bg-brand-green text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4 shadow-lg group-hover:scale-110 transition">2</div>
+                        <h3 class="font-bold text-xl mb-2">Share Receipt</h3>
+                        <p class="text-sm text-gray-600 mb-4">Send proof of payment via WhatsApp.</p>
+                        <a href="https://wa.me/2348184091246" target="_blank" class="inline-block bg-green-500 text-white px-4 py-2 rounded-lg text-sm font-bold hover:bg-green-600 transition">
+                            <i class="fa-brands fa-whatsapp mr-2"></i> Send Receipt
+                        </a>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div class="bg-white p-6 rounded-2xl shadow-lg text-center group hover:border-brand-orange border-2 border-transparent transition">
+                        <div class="w-16 h-16 bg-brand-green text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4 shadow-lg group-hover:scale-110 transition">3</div>
+                        <h3 class="font-bold text-xl mb-2">Get Link</h3>
+                        <p class="text-sm text-gray-600">Receive the official registration form link via WhatsApp.</p>
+                    </div>
+
+                    <!-- Step 4 -->
+                    <div class="bg-white p-6 rounded-2xl shadow-lg text-center group hover:border-brand-orange border-2 border-transparent transition">
+                        <div class="w-16 h-16 bg-brand-green text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4 shadow-lg group-hover:scale-110 transition">4</div>
+                        <h3 class="font-bold text-xl mb-2">Welcome!</h3>
+                        <p class="text-sm text-gray-600">Complete the form and get ready to build!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-4 max-w-3xl">
+            <h2 class="text-3xl font-bold text-center mb-10">Frequently Asked Questions</h2>
+
+            <div class="space-y-4">
+                <div class="border border-gray-200 rounded-xl overflow-hidden">
+                    <button class="w-full px-6 py-4 text-left bg-gray-50 hover:bg-gray-100 flex justify-between items-center font-bold" onclick="toggleFaq(this)">
+                        <span>Does my child need prior coding experience?</span>
+                        <i class="fa-solid fa-chevron-down transition-transform"></i>
+                    </button>
+                    <div class="hidden px-6 py-4 text-gray-600 bg-white">
+                        Absolutely not! This camp is designed for absolute beginners. We start from the basics of logic and drag-and-drop coding before moving to text-based languages.
+                    </div>
+                </div>
+
+                <div class="border border-gray-200 rounded-xl overflow-hidden">
+                    <button class="w-full px-6 py-4 text-left bg-gray-50 hover:bg-gray-100 flex justify-between items-center font-bold" onclick="toggleFaq(this)">
+                        <span>What should they bring?</span>
+                        <i class="fa-solid fa-chevron-down transition-transform"></i>
+                    </button>
+                    <div class="hidden px-6 py-4 text-gray-600 bg-white">
+                        Please bring your own laptop (Windows or Mac). We will provide all the necessary software and tools for game development. A notebook and pen are also recommended for taking notes.
+                    </div>
+                </div>
+
+                <div class="border border-gray-200 rounded-xl overflow-hidden">
+                    <button class="w-full px-6 py-4 text-left bg-gray-50 hover:bg-gray-100 flex justify-between items-center font-bold" onclick="toggleFaq(this)">
+                        <span>Will lunch be provided?</span>
+                        <i class="fa-solid fa-chevron-down transition-transform"></i>
+                    </button>
+                    <div class="hidden px-6 py-4 text-gray-600 bg-white">
+                        We provide snacks and drinks during breaks. However, students should come having eaten lunch before the 2:00 PM start time, or bring a packed meal.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-brand-darkBlue text-white py-12 border-t-4 border-brand-orange">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+                <div class="text-center md:text-left">
+                    <h2 class="text-2xl font-fredoka font-bold mb-2">Summer Coding 001</h2>
+                    <p class="text-gray-400 text-sm">Powered by GIEC - Bridging The Gap</p>
+                </div>
+
+                <div class="flex gap-4">
+                    <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-brand-orange transition"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-brand-orange transition"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-brand-orange transition"><i class="fa-brands fa-twitter"></i></a>
+                </div>
+
+                <div class="text-center md:text-right">
+                    <p class="font-bold text-brand-yellow">Enquiries:</p>
+                    <p class="text-lg font-bold">070327 44016</p>
+                    <p class="text-sm text-gray-400">WhatsApp: 08184091246</p>
+                </div>
+            </div>
+            <div class="mt-8 pt-8 border-t border-white/10 text-center text-sm text-gray-500">
+                 Summer Coding Camp. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Video Modal (Hidden by default) -->
+    <div id="video-modal" class="fixed inset-0 bg-black/80 z-[60] hidden flex items-center justify-center p-4 backdrop-blur-sm" onclick="this.classList.add('hidden')">
+        <div class="bg-black w-full max-w-4xl aspect-video rounded-xl overflow-hidden relative shadow-2xl" onclick="event.stopPropagation()">
+            <div class="absolute inset-0 flex items-center justify-center text-white">
+                <div class="text-center">
+                    <i class="fa-solid fa-play-circle text-6xl mb-4 text-brand-orange"></i>
+                    <p class="text-xl">Promotional Video Placeholder</p>
+                    <p class="text-sm text-gray-400">Click outside to close</p>
+                </div>
+            </div>
+            <button onclick="document.getElementById('video-modal').classList.add('hidden')" class="absolute top-4 right-4 text-white hover:text-brand-orange text-2xl">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div id="toast" class="fixed bottom-5 right-5 bg-brand-darkBlue text-white px-6 py-3 rounded-lg shadow-xl transform translate-y-20 opacity-0 transition-all duration-300 z-50 flex items-center gap-3">
+        <i class="fa-solid fa-circle-check text-brand-green"></i>
+        <span id="toast-msg">Copied to clipboard!</span>
+    </div>
+
+    <script>
+        // --- Countdown Timer Logic ---
+        // Target: July 10th, 2026 (Assuming current year context from prompt)
+        const targetDate = new Date("July 10, 2026 23:59:59").getTime();
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = targetDate - now;
+
+            if (distance < 0) {
+                document.getElementById("days").innerText = "00";
+                document.getElementById("hours").innerText = "00";
+                document.getElementById("minutes").innerText = "00";
+                document.getElementById("seconds").innerText = "00";
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById("days").innerText = days < 10 ? "0" + days : days;
+            document.getElementById("hours").innerText = hours < 10 ? "0" + hours : hours;
+            document.getElementById("minutes").innerText = minutes < 10 ? "0" + minutes : minutes;
+            document.getElementById("seconds").innerText = seconds < 10 ? "0" + seconds : seconds;
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown(); // Initial call
+
+        // --- FAQ Toggle Logic ---
+        function toggleFaq(button) {
+            const content = button.nextElementSibling;
+            const icon = button.querySelector('i');
+
+            if (content.classList.contains('hidden')) {
+                content.classList.remove('hidden');
+                icon.style.transform = 'rotate(180deg)';
+            } else {
+                content.classList.add('hidden');
+                icon.style.transform = 'rotate(0deg)';
+            }
+        }
+
+        // --- Copy to Clipboard Logic ---
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                showToast("Account number copied!");
+            });
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const msg = document.getElementById('toast-msg');
+            msg.innerText = message;
+
+            toast.classList.remove('translate-y-20', 'opacity-0');
+
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3000);
+        }
+
+        // --- Score Animation for Hero Game ---
+        let score = 0;
+        setInterval(() => {
+            score += 100;
+            document.getElementById('score-anim').innerText = score.toString().padStart(4, '0');
+            if(score > 5000) score = 0;
+        }, 2000);
+
+    </script>
+</body>
+</html>
